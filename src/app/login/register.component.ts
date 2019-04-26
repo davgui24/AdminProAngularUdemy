@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
 
     this.forma.setValue({
       nombre: "David",
-      email: "davgui@gamil.com",
+      email: "davgui@gmail.com",
       password: "123456",
       password2: "123456",
       condiciones: true
@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
     if (!this.forma.value.condiciones) {
       swal(
         "IMPORTANTE !!",
-        "Deb eseleccionar los términos y condiciones",
+        "Debe seleccionar los términos y condiciones",
         "error"
       );
     }
