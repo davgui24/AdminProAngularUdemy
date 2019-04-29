@@ -4,6 +4,7 @@ import { Usuario } from '../../models/usuario.model';
 import { URL_SERVICIOS } from '../../config/config';
 import swal from "sweetalert";
 import { map } from "rxjs/operators";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class UsuarioService {
     usuario: Usuario;
     token: string;
 
-  constructor(public http: HttpClient){
+  constructor(public http: HttpClient, public router: Router){
+    this.cargarStorage();
   }
 
   guardarStorage(id: string, token: string, usuario: Usuario){
@@ -23,6 +25,29 @@ export class UsuarioService {
 
     this.usuario = usuario;
     this.token = token;
+  }
+
+  cargarStorage(){
+    if(localStorage.getItem('token')){
+      this.token = localStorage.getItem('token');
+      this.usuario = JSON.parse(localStorage.getItem('usuario'));
+    }else{
+      this.token = '';
+      this.usuario =  null
+    }
+  }
+
+
+  // ------------------------
+
+  logOut(){
+    this.usuario = null;
+    this.token = '';
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
+
+    this.router.navigate(['/login']);
   }
 
   // ---------------
@@ -66,8 +91,15 @@ export class UsuarioService {
   loginGoogle(token){
     let url =  URL_SERVICIOS + '/login/google';
     return this.http.post(url, {token}).pipe(map((res:any) => {
-       this.guardarStorage(res.id, res.token, res.uausrioBD);
+       this.guardarStorage(res.id, res.token, res.usuarioDB);
        return true;
     }));
+  }
+
+
+  // -----------------
+
+  estaLogueado(){
+    return (this.token.length > 5) ? true : false;
   }
 }
