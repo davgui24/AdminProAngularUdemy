@@ -13,6 +13,8 @@ import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.co
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { PipesModule } from '../pipes/pipes.module';
+
 
 
 
@@ -38,6 +40,6 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     IncrementadorComponent,
     GraficoDonaComponent
   ],
-  imports: [SharedModule, PAGES_ROUTES, FormsModule, ChartsModule]
+  imports: [SharedModule, PAGES_ROUTES, FormsModule, ChartsModule, PipesModule]
 })
 export class PagesMogule {}
